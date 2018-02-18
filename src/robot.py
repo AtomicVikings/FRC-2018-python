@@ -14,6 +14,7 @@ class MyRobot(wpilib.IterativeRobot):
 	Elevator_Motor 		= 1
 	Left_Front_Intake 	= 2
 	Right_Front_Intake 	= 3
+	Climber_Motor		= 4
 	
 	#Joystick
 	Joystick_Channel 		= 0
@@ -23,6 +24,7 @@ class MyRobot(wpilib.IterativeRobot):
 		self.Elevator = ctre.WPI_TalonSRX(self.Elevator_Motor)
 		self.LF_Intake = ctre.WPI_TalonSRX(self.Left_Front_Intake)
 		self.RF_Intake = ctre.WPI_TalonSRX(self.Right_Front_Intake)
+		self.Climber = ctre.WPI_TalonSRX(self.Climber_Motor)
 		
 		#Joysticks
 		self.Joystick = wpilib.Joystick(self.Joystick_Channel)
@@ -45,6 +47,7 @@ class MyRobot(wpilib.IterativeRobot):
 		self.Elevator.disable()
 		self.LF_Intake.disable()
 		self.RF_Intake.disable()
+		self.Climber.disable()
     
 	def autonomousPeriodic(self):
 		pass
@@ -76,6 +79,13 @@ class MyRobot(wpilib.IterativeRobot):
 			self.Elevator.set(-0.5)
 		else:
 			self.Elevator.set(0)
+		
+		if self.Sec_Joystick.getRawButton(1):
+			self.Climber.set(0.5)
+		elif self.Sec_Joystick.getRawButton(4):
+			self.Climber.set(-0.5)
+		else:
+			self.Climber.set(0)
 		
     
 if __name__ == '__main__':
